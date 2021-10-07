@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>農產品比價網</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script defer src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script defer src="../js/vegetable.js"></script>
+</head>
+
+<body>
+    <div class="w-full mx-auto md:max-w-4xl">
+        <h1 class=" my-[2.9%] sm:block hidden">
+            <img src="https://firebasestorage.googleapis.com/v0/b/hexschool-courses.appspot.com/o/course%2FJS%20%E5%89%8D%E7%AB%AF%E4%BF%AE%E7%B7%B4%E5%85%A8%E6%94%BB%E7%95%A5%2F1628942714013-logo%20%E6%94%B9.png?alt=media&token=583e78ed-6a6c-4660-9f0e-2f59f8eb78e2"
+                alt="農產品比價網">
+        </h1>
+        <h1 class=" my-[2.9%] flex sm:hidden justify-center">
+            <img src="https://firebasestorage.googleapis.com/v0/b/hexschool-courses.appspot.com/o/course%2FJS%20%E5%89%8D%E7%AB%AF%E4%BF%AE%E7%B7%B4%E5%85%A8%E6%94%BB%E7%95%A5%2F1629001163643-logo-sm.png?alt=media&token=914f40fc-c143-4aaa-a1c3-fb0bdd17fa9c"
+                alt="農產品比價網">
+        </h1>
+        <div class="p-1 bg-white rounded-md sm:p-2">
+            <div class="p-2 border-4 border-yellow-300 border-solid rounded-md sm:p-5">
+                <div class="flex justify-center gap-3" id="categoryBtn">
+                    <button type="button"
+                        class="px-8 py-2 font-semibold border-2 border-black rounded-lg outline-none hover:bg-yellow-300"
+                        data-type="N04">蔬果</button>
+                    <button type="button"
+                        class="px-8 py-2 font-semibold border-2 border-black rounded-lg outline-none hover:bg-yellow-300"
+                        data-type="N05">水果</button>
+                    <button type="button"
+                        class="px-8 py-2 font-semibold border-2 border-black rounded-lg outline-none hover:bg-yellow-300"
+                        data-type="N06">花卉</button>
+                </div>
+                <div class="justify-center gap-3 my-3 md:flex">
+                    <div class="flex overflow-hidden border-2 rounded-md border-lime-700">
+                        <label class="px-4 py-2 font-semibold text-white md:px-8 bg-lime-600" for="search">
+                            作物名稱
+                        </label>
+                        <input type="text" class="p-2 outline-none " placeholder="請輸入作物名稱" id="search">
+                    </div>
+                    <button type="button"
+                        class="w-full px-10 py-2 my-2 font-semibold text-white border rounded-md bg-lime-700 border-lime-600 hover:bg-lime-500 md:w-1/5 md:my-0"
+                        id="searchBtn">搜尋</button>
+                </div>
+                <div class="justify-end hidden md:flex">
+                    <select class="relative p-2 px-8 border-2 rounded-md appearance-none sortSelect">
+                        <option value="">排序篩選</option>
+                        <option value="上價">依上價排序</option>
+                        <option value="中價">依中價排序</option>
+                        <option value="下價">依下價排序</option>
+                        <option value="平均價">依平均價排序</option>
+                        <option value="交易量">依交易量排序</option>
+                    </select>
+                </div>
+                <table class="w-full my-5 text-xs table-auto sm:text-base">
+                    <thead class="border-t-2 border-b-2 border-black ">
+                        <tr class=" bg-[#F4F1EA] table-row">
+                            <th class="px-2 py-3 sm:px-4">
+                                <div class="flex items-center justify-center">
+                                    <h2>作物名稱</h2>
+                                </div>
+                            </th>
+                            <th class="px-2 py-3 sm:px-4">
+                                <div class="flex items-center justify-center">
+                                    <h2>市場名稱</h2>
+                                </div>
+                            </th>
+                            <th class="px-2 py-3 cursor-pointer sm:px-4 group sortTableBtn" data-sort="上價">
+                                <div class="flex items-center justify-center">
+                                    <h2>上價</h2>
+                                    <button type="button"
+                                        class="transition-all duration-300 opacity-0 group-hover:opacity-100">
+                                        <i class="block ml-2 fas fa-caret-up"></i>
+                                        <i class="block ml-2 fas fa-caret-down"></i>
+                                    </button>
+                                </div>
+                            </th>
+                            <th class="px-2 py-3 cursor-pointer sm:px-4 group sortTableBtn" data-sort="中價">
+                                <div class="flex items-center justify-center">
+                                    <h2>中價</h2>
+                                    <button type="button"
+                                        class="transition-all duration-300 opacity-0 group-hover:opacity-100">
+                                        <i class="block ml-2 fas fa-caret-up"></i>
+                                        <i class="block ml-2 fas fa-caret-down"></i>
+                                    </button>
+                                </div>
+                            </th>
+                            <th class="px-2 py-3 cursor-pointer sm:px-4 group sortTableBtn" data-sort="下價">
+                                <div class="flex items-center justify-center">
+                                    <h2>下價</h2>
+                                    <button type="button"
+                                        class="transition-all duration-300 opacity-0 group-hover:opacity-100">
+                                        <i class="block ml-2 fas fa-caret-up"></i>
+                                        <i class="block ml-2 fas fa-caret-down"></i>
+                                    </button>
+                                </div>
+                            </th>
+                            <th class="px-2 py-3 cursor-pointer sm:px-4 group sortTableBtn" data-sort="平均價">
+                                <div class="flex items-center justify-center">
+                                    <h2>平均價</h2>
+                                    <button type="button"
+                                        class="transition-all duration-300 opacity-0 group-hover:opacity-100">
+                                        <i class="block ml-2 fas fa-caret-up"></i>
+                                        <i class="block ml-2 fas fa-caret-down"></i>
+                                    </button>
+                                </div>
+                            </th>
+                            <th class="px-2 py-3 cursor-pointer sm:px-4 group sortTableBtn" data-sort="交易量">
+                                <div class="flex items-center justify-center">
+                                    <h2>交易量</h2>
+                                    <button type="button"
+                                        class="transition-all duration-300 opacity-0 group-hover:opacity-100">
+                                        <i class="block ml-2 fas fa-caret-up"></i>
+                                        <i class="block ml-2 fas fa-caret-down"></i>
+                                    </button>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableList">
+
+                        <!-- <tr class="hidden text-center border-b-2" id="loading">
+                            <td colspan="7" class="px-4 py-3 ">資料載入中...</td>
+                        </tr> -->
+
+                        <!-- <tr class="text-center border-b-2">
+                            <td class="px-4 py-3 font-semibold">椰子</td>
+                            <td class="px-4 py-3 font-semibold">台北二</td>
+                            <td class="px-4 py-3 font-light">10.0</td>
+                            <td class="px-4 py-3 font-light">8.9</td>
+                            <td class="px-4 py-3 font-light">5.0</td>
+                            <td class="px-4 py-3 font-light">8.3</td>
+                            <td class="px-4 py-3 font-light">30.0</td>
+                        </tr> -->
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="fixed top-0 left-0 flex items-center justify-center w-full h-screen pointer-events-none bg-gray-800/50"
+        id="loading">
+        <div class="loading-snipper">
+            <div class="loading-content">
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-end md:hidden">
+        <select class="relative p-2 px-8 my-5 bg-white border-2 rounded-full appearance-none sortSelect">
+            <option value="">排序篩選</option>
+            <option value="上價">依上價排序</option>
+            <option value="中價">依中價排序</option>
+            <option value="下價">依下價排序</option>
+            <option value="平均價">依平均價排序</option>
+            <option value="交易量">依交易量排序</option>
+        </select>
+    </div>
+</body>
+
+</html>
+
+<style>
+    @import url("https://fonts.googleapis.com/earlyaccess/notosanstc.css");
+
+    body {
+        font-family: 'Noto Sans TC', sans-serif;
+        width: 100%;
+        height: 100vh;
+        background-image: url('https://hexschool.github.io/js-filter/assets/bg.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: #F4F1EA;
+        letter-spacing: 0.2rem;
+    }
+
+    select {
+        background: url('data:image/svg+xml;utf8,<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sort-down" class="svg-inline--fa fa-sort-down fa-w-2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="10 0 320 900"><path fill="currentColor" d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"></path></svg>') no-repeat;
+        background-position: 135px 5px;
+    }
+</style>
+
+
+
+<style type="text/css">
+    @keyframes loading-content {
+        0% {
+            opacity: 1;
+            backface-visibility: hidden;
+            transform: translateZ(0) scale(1.5, 1.5);
+        }
+
+        100% {
+            opacity: 0;
+            backface-visibility: hidden;
+            transform: translateZ(0) scale(1, 1);
+        }
+    }
+
+    .loading-content div>div {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #b3c430;
+        animation: loading-content 1s linear infinite;
+    }
+
+    .loading-content div:nth-child(1)>div {
+        left: 148px;
+        top: 88px;
+        animation-delay: -0.875s;
+    }
+
+    .loading-content>div:nth-child(1) {
+        transform: rotate(0deg);
+        transform-origin: 160px 100px;
+    }
+
+    .loading-content div:nth-child(2)>div {
+        left: 130px;
+        top: 130px;
+        animation-delay: -0.75s;
+    }
+
+    .loading-content>div:nth-child(2) {
+        transform: rotate(45deg);
+        transform-origin: 142px 142px;
+    }
+
+    .loading-content div:nth-child(3)>div {
+        left: 88px;
+        top: 148px;
+        animation-delay: -0.625s;
+    }
+
+    .loading-content>div:nth-child(3) {
+        transform: rotate(90deg);
+        transform-origin: 100px 160px;
+    }
+
+    .loading-content div:nth-child(4)>div {
+        left: 46px;
+        top: 130px;
+        animation-delay: -0.5s;
+    }
+
+    .loading-content>div:nth-child(4) {
+        transform: rotate(135deg);
+        transform-origin: 58px 142px;
+    }
+
+    .loading-content div:nth-child(5)>div {
+        left: 28px;
+        top: 88px;
+        animation-delay: -0.375s;
+    }
+
+    .loading-content>div:nth-child(5) {
+        transform: rotate(180deg);
+        transform-origin: 40px 100px;
+    }
+
+    .loading-content div:nth-child(6)>div {
+        left: 46px;
+        top: 46px;
+        animation-delay: -0.25s;
+    }
+
+    .loading-content>div:nth-child(6) {
+        transform: rotate(225deg);
+        transform-origin: 58px 58px;
+    }
+
+    .loading-content div:nth-child(7)>div {
+        left: 88px;
+        top: 28px;
+        animation-delay: -0.125s;
+    }
+
+    .loading-content>div:nth-child(7) {
+        transform: rotate(270deg);
+        transform-origin: 100px 40px;
+    }
+
+    .loading-content div:nth-child(8)>div {
+        left: 130px;
+        top: 46px;
+        animation-delay: 0s;
+    }
+
+    .loading-content>div:nth-child(8) {
+        transform: rotate(315deg);
+        transform-origin: 142px 58px;
+    }
+
+    .loading-snipper {
+        width: 200px;
+        height: 200px;
+        display: inline-block;
+        overflow: hidden;
+        background: none;
+    }
+
+    .loading-content {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        transform: translateZ(0) scale(1);
+        backface-visibility: hidden;
+        transform-origin: 0 0;
+        /* see note above */
+    }
+
+    .loading-content div {
+        box-sizing: content-box;
+    }
+
+    /* generated by https://loading.io/ */
+</style>

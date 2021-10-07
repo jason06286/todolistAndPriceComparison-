@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todolist 待辦事項</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/todolist.js" defer></script>
+</head>
+
+<body>
+    <div class="sm:w-[500px] w-full">
+        <div class="mx-3">
+            <h2 class="text-3xl sm:text-5xl  uppercase font-semibold font-Baloo tracking-wider  mb-[3.1%] text-center">
+                todo
+                list</h2>
+            <div class="flex max-w-full px-2 py-3 mb-2 bg-white rounded-lg shadow-lg">
+                <input type="text" class="flex-grow block outline-none appearance-none sm:text-xl"
+                    placeholder="請輸入代辦事項">
+                <button type="button" class="block p-2 ml-2 text-white bg-gray-800 rounded-lg hover:bg-gray-600"
+                    id="addBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                </button>
+            </div>
+            <div class="pb-5 bg-white rounded-lg shadow-xl " id="toDoList">
+                <div class="flex w-full text-gray-400" id="tabBtn">
+                    <div
+                        class="flex-grow py-3 font-medium text-center text-gray-800 border-b-2 border-gray-800 cursor-pointer">
+                        全部
+                    </div>
+                    <div class="flex-grow py-3 font-medium text-center border-b-2 cursor-pointer">
+                        待完成
+                    </div>
+                    <div class="flex-grow py-3 font-medium text-center border-b-2 cursor-pointer">
+                        已完成
+                    </div>
+                </div>
+                <div class="p-3 px-5" id="list">
+                    <!-- <label class="relative flex items-center w-full py-2 cursor-pointer select-none">
+                        <input type="checkbox"
+                            class="relative w-6 h-6 transition-all duration-300 border-2 flag-1 checked:scale-0 ">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="absolute w-8 h-8 text-yellow-600 transition-all duration-300 scale-0 top-5 -left-1 flag-1-checked:scale-100"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <p class="w-full py-4 ml-4 border-b flag-1-checked:line-through flag-1-checked:text-gray-400">
+                            把冰箱發霉的檸檬拿去丟</p>
+                        <button type="button"
+                            class="text-gray-400 transition-all duration-300 scale-0 flag-1-hover:scale-100 hover:text-gray-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </label> -->
+                </div>
+                <div class="flex justify-between px-5 text-sm ">
+                    <p id="unDoneText">5 個待完成項目</p>
+                    <button type="button" id="removeAllBtn" class="text-gray-400 hover:text-gray-300">清除已完成項目</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<style>
+    @import url("https://fonts.googleapis.com/earlyaccess/notosanstc.css");
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@600;700&display=swap');
+
+    body {
+        width: 100%;
+        height: 100vh;
+        background: #eee;
+        letter-spacing: 0.15em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Noto Sans TC', sans-serif;
+        background-image: linear-gradient(174deg, #ffd370 2%,
+                #ffd370 46%,
+                #ffffff 46%,
+                #ffffff 100%,
+                #e8e8e8 100%);
+    }
+
+    .font-Baloo {
+        font-family: "Baloo Tamma 2";
+    }
+</style>
