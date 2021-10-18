@@ -9,6 +9,7 @@ const removeAllBtn = document.querySelector('#removeAllBtn')
 
 let listArray = []
 let filterListArray = []
+let condition = '全部'
 
 addBtn.addEventListener('click', addTodo)
 
@@ -26,7 +27,8 @@ tabBtn.addEventListener('click', (e) => {
             item.classList.remove('text-gray-800')
         }
     })
-    getListArray(e.target.textContent.trim())
+    condition = e.target.textContent.trim()
+    getListArray()
 })
 
 removeAllBtn.addEventListener('click', (e) => {
@@ -38,12 +40,12 @@ removeAllBtn.addEventListener('click', (e) => {
 
 getListArray()
 
-function getListArray(condititon = '全部') {
+function getListArray() {
     listArray = JSON.parse(window.localStorage.getItem('todo')) || []
 
-    condititon === '全部' ? filterListArray = listArray :
-        condititon === '待完成' ? filterListArray = listArray.filter(item => !item.isdone) :
-            condititon === '已完成' ? filterListArray = listArray.filter(item => item.isdone) : false
+    condition === '全部' ? filterListArray = listArray :
+        condition === '待完成' ? filterListArray = listArray.filter(item => !item.isdone) :
+            condition === '已完成' ? filterListArray = listArray.filter(item => item.isdone) : false
 
     listArray.length !== 0 ? toDoList.classList.remove('hidden') : toDoList.classList.add('hidden')
 
@@ -54,7 +56,10 @@ function getListArray(condititon = '全部') {
 }
 
 function addTodo() {
-    if (input.value === '') return
+    if (input.value === '') {
+        alert('請輸入代辦事項!!')
+        return
+    }
 
     const id = new Date().getTime()
 

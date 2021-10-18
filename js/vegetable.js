@@ -5,6 +5,7 @@ const tbodyDom = document.querySelector('#tableList')
 const categoryBtn = document.querySelector('#categoryBtn')
 const sortSelectDoms = document.querySelectorAll('.sortSelect')
 const sortTableBtns = document.querySelectorAll('.sortTableBtn')
+const searchTextDom = document.querySelector('#searchText')
 
 const loadingDom = document.querySelector('#loading')
 
@@ -33,12 +34,20 @@ async function getData() {
 
 searchInputDom.addEventListener('keyup', (e) => {
     if (e.key !== 'Enter') return
+    if (searchInputDom.value === '') {
+        alert('請輸入作物名稱!!')
+        return
+    }
     judgeSelectDom()
     judgeCategoryBtnClass()
     filterCropName()
 })
 
 searchBtnDom.addEventListener('click', (e) => {
+    if (searchInputDom.value === '') {
+        alert('請輸入作物名稱!!')
+        return
+    }
     judgeSelectDom()
     judgeCategoryBtnClass()
     filterCropName()
@@ -63,6 +72,7 @@ sortTableBtns.forEach(item => {
             sortCondition = item.dataset.sort
             order = true
         }
+        window.innerWidth >= 768 ? sortSelectDoms[0].value = item.dataset.sort : sortSelectDoms[1].value = item.dataset.sort
         sortData()
     })
 })
@@ -97,7 +107,8 @@ function filterCategory() {
 }
 
 function filterCropName() {
-    if (searchInputDom.value === '') return
+    searchTextDom.innerHTML = `查看「${searchInputDom.value}」的比價結果`
+
     filterData = data.filter(item => {
         if (item['作物名稱'] === null) return false
         return item['作物名稱'].indexOf(searchInputDom.value) !== -1 ? true : false
